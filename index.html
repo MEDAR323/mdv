@@ -181,6 +181,35 @@
       { name: "Grapes", img: "images/grapes.png", value: "349 К", demand: "10/10", rarity: "Exclusive", status: "unstable" }
     ];
 
+     // ==================== ЦВЕТА ДЛЯ РЕДКОСТЕЙ ====================
+    function getRarityStyle(rarity) {
+      const map = {
+        "Legendary": "background:#64748b; color:white;",
+        "Godly": "background:#3b82f6; color:white;",
+        "Exclusive": "background:#c026d3; color:white;",
+        "Gamepass": "background:#eab308; color:black;"
+        // "Prismatic": "background:#f472b6; color:white;",
+      };
+      return map[rarity] || "background:#475569; color:white;";
+    }
+
+    // ==================== ЦВЕТА ДЛЯ СПРОСА (Demand) ====================
+  //  function getDemandStyle(demand) {
+  //    if (demand === "High") return "color: #f87171;";
+  //    if (demand === "Rising") return "color: #4ade80;";
+ //     if (demand === "Medium") return "color: #fbbf24;";
+ //     return "color: #94a3b8;"; // Low
+//    }
+
+    // ==================== ЦВЕТА И ТЕКСТ ДЛЯ СОСТОЯНИЙ ====================
+    function getStatusHTML(status) {
+      if (status === "up") return `<div class="status" style="background:#14532d; color:#86efac;">↑ Рост</div>`;
+      if (status === "down") return `<div class="status" style="background:#7f1d1d; color:#fda4af;">↓ Падение</div>`;
+      if (status === "stable") return `<div class="status" style="background:#78350f; color:#fcd34d;">→ Стабильно</div>`;
+      if (status === "unstable") return `<div class="status" style="background:#312e81; color:#c4d0ff;">↯ Нестабильно</div>`;
+      return '';
+    }
+    
     function renderUnits(filtered) {
       const grid = document.getElementById('unitGrid');
       grid.innerHTML = '';
@@ -194,7 +223,7 @@
           <div class="value">${unit.value}</div>
           <div class="demand">Спрос: ${unit.demand}</div>
           <div class="rarity" style="background:#7c3aed; color:white; padding:6px 18px; border-radius:20px; margin-top:10px;">
-            ${unit.rarity}
+            "${getRarityStyle(unit.rarity)}"> ${unit.rarity}
           </div>
           <div class="status" style="background:#14532d; color:#86efac; padding:6px 16px; border-radius:20px; margin-top:8px;">
             ${unit.status}
