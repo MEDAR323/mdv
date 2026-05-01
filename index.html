@@ -223,9 +223,7 @@
           <div class="value">${unit.value}</div>
           <div class="demand">Спрос: ${unit.demand}</div>
           <div class="rarity" style="${getRarityStyle(unit.rarity)}">${unit.rarity}</div>
-          <div class="status" style="background:#14532d; color:#86efac; padding:6px 16px; border-radius:20px; margin-top:8px;">
-            ${unit.status}
-          </div>
+          <div class="status" style="${getStatusHTML(unit.status)}">Demand: ${unit.status}</div>
         `;
         grid.appendChild(card);
       });
