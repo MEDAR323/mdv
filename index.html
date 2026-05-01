@@ -252,15 +252,23 @@
     ];
 
      // ==================== ЦВЕТА ДЛЯ РЕДКОСТЕЙ ====================
-    function getRarityStyle(rarity) {
-      const map = {
-        "Legendary": "background:#CE2626; color:white;",
-        "Godly": "background:#B33791; color:white;",
-        "Exclusive": "background:#831C91; color:white;",
-        "Gamepass": "background:#F2B50B; color:black;"
+  //  function getRarityStyle(rarity) {
+   //   const map = {
+   //     "Legendary": "background:#CE2626; color:white;",
+  //      "Godly": "background:#B33791; color:white;",
+  //      "Exclusive": "background:#831C91; color:white;",
+ //       "Gamepass": "background:#F2B50B; color:black;"
         // "Prismatic": "background:#f472b6; color:white;",
-      };
-      return map[rarity] || "background:#475569; color:white;";
+ //     };
+ //     return map[rarity] || "background:#475569; color:white;";
+ //   }
+    
+    function getRarityStyle(rarity) {
+      if (rarity === "Legendary") return `<div class="rarity" style="background:#14532d; color:#86efac;">↑ Рост</div>`;
+      if (rarity === "Exclusive") return `<div class="rarity" style="background:#7f1d1d; color:#fda4af;">↓ Падение</div>`;
+      if (rarity === "Godly") return `<div class="rarity" style="background:#78350f; color:#fcd34d;">→ Стабильно</div>`;
+      if (rarity === "Gamepass") return `<div class="rarity" style="background:#312e81; color:#c4d0ff;">↯ Нестабильно</div>`;
+      return '';
     }
 
     // ==================== ЦВЕТА ДЛЯ СПРОСА (Demand) ====================
