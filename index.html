@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDV - Garden Tower Defense Values</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background: #111;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom: 5px solid #4ade80;
+    }
+    h1 { color: #4ade80; margin: 0; font-size: 2.5em; }
+    .subtitle { color: #888; margin: 10px 0 0; }
+
+    .social-links { margin-top: 20px; }
+    .social-links a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 12px 24px;
+      background: #1f1f1f;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .social-links a:hover { background: #4ade80; color: black; }
+
+    .controls {
+      background: #111;
+      padding: 22px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    input, select, button {
+      padding: 13px 18px;
+      font-size: 16px;
+      border-radius: 8px;
+      background: #1f1f1f;
+      color: white;
+      border: none;
+    }
+    button { 
+      background: #4ade80; 
+      color: black; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+
+    .unit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+      gap: 20px;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+    .unit-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+    .unit-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: contain;
+      background: #111;
+      border-radius: 10px;
+    }
+    .unit-name { font-size: 1.25em; font-weight: bold; margin: 12px 0 10px; }
+    .value { color: #fbbf24; font-size: 1.6em; font-weight: bold; }
+    .demand { font-weight: 600; margin: 8px 0; }
+    .rarity {
+      font-size: 0.95em;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-top: 10px;
+      display: inline-block;
+      font-weight: bold;
+    }
+    .status {
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>MDV</h1>
+    <p class="subtitle">MD Values • Garden Tower Defense</p>
+    
+    <div class="social-links">
+      <a href="https://t.me/official_medar323" target="_blank">📢 Мой Канал</a>
+      <a href="https://t.me/GTD_baton" target="_blank">📣 Канал сотрудника</a>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="🔍 Поиск юнита..." onkeyup="filterUnits()" style="width:280px;">
+
+    <select id="rarityFilter" onchange="filterUnits()">
+      <option value="">Все редкости</option>
+      <option value="Legendary">Легендарные</option>
+      <option value="Godly">Божественные</option>
+      <option value="Exclusive">Эксклюзивные</option>
+      <option value="Gamepass">Геймпассы</option>
+    </select>
+
+    <button onclick="resetFilters()">Сбросить всё</button>
+  </div>
+
+  <div style="text-align:center; margin:20px 0 30px; color:#777;">
+    Найдено: <strong id="count">0</strong> юнитов
+  </div>
+
+  <div class="unit-grid" id="unitGrid"></div>
+
+  <script>
+    let units = [
+      { name: "Corrupted Stem", img: "images/gold-chicken-coop.png", value: "495K", demand: "9/10", rarity: "Exclusive", status: "up" },
+      { name: "Witchleaf", img: "images/witchleaf.png", value: "415K", demand: "10/10", rarity: "Godly", status: "up" },
+      { name: "Prismleaf", img: "images/gold-infectia.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
+      { name: "Teslaflora", img: "images/vip.png", value: "349 К", demand: "10/10", rarity: "Exclusive", status: "unstable" }
+    ];
+
+    function renderUnits(filtered) {
+      const grid = document.getElementById('unitGrid');
+      grid.innerHTML = '';
+
+      filtered.forEach(unit => {
+        const card = document.createElement('div');
+        card.className = 'unit-card';
+        card.innerHTML = `
+          <img src="${unit.img}" onerror="this.src='images/placeholder.png'">
+          <div class="unit-name">${unit.name}</div>
+          <div class="value">${unit.value}</div>
+          <div class="demand">Спрос: ${unit.demand}</div>
+          <div class="rarity" style="background:#7c3aed; color:white; padding:6px 18px; border-radius:20px; margin-top:10px;">
+            ${unit.rarity}
+          </div>
+          <div class="status" style="background:#14532d; color:#86efac; padding:6px 16px; border-radius:20px; margin-top:8px;">
+            ${unit.status}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      document.getElementById('count').textContent = filtered.length;
+    }
+
+    function filterUnits() {
+      const search = document.getElementById('search').value.toLowerCase().trim();
+      const rarity = document.getElementById('rarityFilter').value;
+
+      let filtered = units.filter(u => u.name.toLowerCase().includes(search));
+
+      if (rarity) {
+        filtered = filtered.filter(u => u.rarity === rarity);
+      }
+
+      renderUnits(filtered);
+    }
+
+    function resetFilters() {
+      document.getElementById('search').value = '';
+      document.getElementById('rarityFilter').value = '';
+      filterUnits();
+    }
+
+    window.onload = () => {
+      renderUnits(units);
+    };
+  </script>
+</body>
+</html>
