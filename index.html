@@ -138,7 +138,7 @@
       { name: "Witchleaf", img: "images/witchleaf.png", value: "1М", demand: "10/10", rarity: "Godly", status: "unstable" },
       { name: "Prismleaf", img: "images/prismleaf.png", value: "140К", demand: "8/10", rarity: "Godly", status: "unstable" },
       { name: "Subzero Stem", img: "images/subzero_stem.png", value: "67K", demand: "7/10", rarity: "Godly", status: "unstable" },
-      { name: "Teslaflora", img: "images/teslaflora.png", value: "250K", demand: "10/10", rarity: "exclusive", status: "unstable" },
+      { name: "Teslaflora", img: "images/teslaflora.png", value: "250K", demand: "10/10", rarity: "Exclusive", status: "scatter" },
       { name: "Strongest Punch Potato", img: "images/SPP.png", value: "48K", demand: "6/10", rarity: "Exclusive", status: "down" },
       { name: "Earth Dragon", img: "images/ED.png", value: "34K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
       { name: "Transfiguration Flower", img: "images/trans.png", value: "17K", demand: "7/10", rarity: "Exclusive", status: "up" },
@@ -282,10 +282,11 @@
 
     // ==================== ЦВЕТА И ТЕКСТ ДЛЯ СОСТОЯНИЙ ====================
     function getStatusHTML(status) {
-      if (status === "up") return `<div class="status" style="background:#14532d; color:#86efac;">↑ Рост</div>`;
-      if (status === "down") return `<div class="status" style="background:#7f1d1d; color:#fda4af;">↓ Падение</div>`;
-      if (status === "stable") return `<div class="status" style="background:#78350f; color:#fcd34d;">→ Стабильно</div>`;
-      if (status === "unstable") return `<div class="status" style="background:#312e81; color:#c4d0ff;">↯ Нестабильно</div>`;
+      if (status === "up") return `<div class="status" style="background:#14532d; color:white;">↑ Рост</div>`;
+      if (status === "down") return `<div class="status" style="background:#7f1d1d; color:white;">↓ Падение</div>`;
+      if (status === "stable") return `<div class="status" style="background:#78350f; color:white;">→ Стабильно</div>`;
+      if (status === "unstable") return `<div class="status" style="background:#312e81; color:white;">↯ Нестабильно</div>`;
+      if (status === "scatter") return `<div class="status" style="background:#1E104E; color:white;">⟨⟩ Разброс цены</div>`;
       return '';
     }
     
