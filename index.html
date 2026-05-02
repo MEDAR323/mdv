@@ -13,7 +13,7 @@
       margin: 0;
       padding: 0;
     }
-    
+
     .header {
       background: #111;
       padding: 30px 20px;
@@ -36,38 +36,6 @@
     }
     .social-links a:hover { background: #4ade80; color: black; }
 
-      .tabs {
-      background: #111;
-      padding: 15px 0;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .tab {
-      padding: 14px 30px;
-      background: #1f1f1f;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .tab.active { background: #4ade80; color: black; }
-
-    .section { display: none; padding: 20px; }
-    .section.active { display: block; }
-
-    .unit-grid, .tier-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 18px;
-      max-width: 1500px;
-      margin: 0 auto;
-    }
-    .tier-grid {
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 12px;
-    }
-    
     .controls {
       background: #111;
       padding: 22px;
@@ -144,13 +112,6 @@
     </div>
   </div>
 
-  <div class="tabs">
-  <span class="tab active" onclick="switchTab(0)">Список</span>
-  <span class="tab" onclick="switchTab(1)">Тир-Лист</span>
-  </div>
-
-  
-  
   <div class="controls">
     <input type="text" id="search" placeholder="🔍 Поиск юнита..." onkeyup="filterUnits()" style="width:280px;">
 
@@ -168,10 +129,7 @@
   <div style="text-align:center; margin:20px 0 30px; color:#777;">
     Найдено: <strong id="count">0</strong> юнитов
   </div>
-  
-<div id="section1" class="section">
-    <div class="tier-grid" id="tierGrid"></div>
-</div>
+
   <div class="unit-grid" id="unitGrid"></div>
 
   <script>
@@ -310,71 +268,4 @@
       if (rarity === "Legendary") return `<div class="rarity" style="background:#CE2626; color:white;">Легендарный</div>`;
       if (rarity === "Exclusive") return `<div class="rarity" style="background:#831C91; color:white;">Эксклюзивный</div>`;
       if (rarity === "Godly") return `<div class="rarity" style="background:#B33791; color:white;">Божественный</div>`;
-      if (rarity === "Gamepass") return `<div class="rarity" style="background:#F2B50B; color:white;">Геймпасс</div>`;
-      return '';
-    }
-
-    // ==================== ЦВЕТА ДЛЯ СПРОСА (Demand) ====================
-  //  function getDemandStyle(demand) {
-  //    if (demand === "High") return "color: #f87171;";
-  //    if (demand === "Rising") return "color: #4ade80;";
- //     if (demand === "Medium") return "color: #fbbf24;";
- //     return "color: #94a3b8;"; // Low
-//    }
-
-    // ==================== ЦВЕТА И ТЕКСТ ДЛЯ СОСТОЯНИЙ ====================
-    function getStatusHTML(status) {
-      if (status === "up") return `<div class="status" style="background:#14532d; color:white;">↑ Рост</div>`;
-      if (status === "down") return `<div class="status" style="background:#7f1d1d; color:white;">↓ Падение</div>`;
-      if (status === "stable") return `<div class="status" style="background:#78350f; color:white;">→ Стабильно</div>`;
-      if (status === "unstable") return `<div class="status" style="background:#312e81; color:white;">↯ Нестабильно</div>`;
-      if (status === "scatter") return `<div class="status" style="background:#1E104E; color:white;">⟨⟩ Разброс цены</div>`;
-      return '';
-    }
-    
-    function renderUnits(filtered) {
-      const grid = document.getElementById('unitGrid');
-      grid.innerHTML = '';
-
-      filtered.forEach(unit => {
-        const card = document.createElement('div');
-        card.className = 'unit-card';
-        card.innerHTML = `
-          <img src="${unit.img}" onerror="this.src='images/placeholder.png'">
-          <div class="unit-name">${unit.name}</div>
-          <div class="value">${unit.value}</div>
-          <div class="demand">Спрос: ${unit.demand}</div>
-          <div class="rarity">${getRarityStyle(unit.rarity)}</div>
-          ${getStatusHTML(unit.status)}
-        `;
-        grid.appendChild(card);
-      });
-
-      document.getElementById('count').textContent = filtered.length;
-    }
-
-    function filterUnits() {
-      const search = document.getElementById('search').value.toLowerCase().trim();
-      const rarity = document.getElementById('rarityFilter').value;
-
-      let filtered = units.filter(u => u.name.toLowerCase().includes(search));
-
-      if (rarity) {
-        filtered = filtered.filter(u => u.rarity === rarity);
-      }
-
-      renderUnits(filtered);
-    }
-
-    function resetFilters() {
-      document.getElementById('search').value = '';
-      document.getElementById('rarityFilter').value = '';
-      filterUnits();
-    }
-
-    window.onload = () => {
-      renderUnits(units);
-    };
-  </script>
-</body>
-</html>
+      if (rarity === "Gamepass") return `<div class="rarity" style="bac
