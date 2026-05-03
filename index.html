@@ -13,7 +13,7 @@
       margin: 0;
       padding: 0;
     }
-
+   
     .header {
       background: #111;
       padding: 30px 20px;
@@ -108,10 +108,14 @@
     <p class="subtitle">MD Values • Garden Tower Defense</p>
     
     <div class="social-links">
-      <a href="https://t.me/official_medar323" target="_blank">📢 Мой Канал </a>
+      <a href="https://t.me/official_medar323" id="channel" target="_blank">📢 Мой Канал </a>
     </div>
   </div>
-
+  
+  <div style="position: absolute; top: 15px; left: 15px; color: #666; font-size: 16px; font-weight: bold; z-index: 100; text-shadow: 0 0 4px rgba(0,0,0,0.8);">
+  v1.0
+</div>
+  
   <div class="controls">
     <input type="text" id="search" placeholder="🔍 Поиск юнита..." onkeyup="filterUnits()" style="width:280px;">
 
@@ -122,6 +126,12 @@
       <option value="Exclusive">Эксклюзивные</option>
       <option value="Gamepass">Геймпассы</option>
     </select>
+    
+    <select id="typeFilter" onchange="filterUnits()">
+  <option value="">Все юниты</option>
+  <option value="new">Новые юниты</option>
+  <option value="top">В топе</option>
+</select>
 
     <button onclick="resetFilters()">Сбросить всё</button>
   </div>
@@ -134,89 +144,89 @@
 
   <script>
     let units = [
-      { name: "Corrupted Stem", img: "images/corrupted_stem.png", value: "145K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Witchleaf", img: "images/witchleaf.png", value: "1М", demand: "10/10", rarity: "Godly", status: "unstable" },
+      { name: "Corrupted Stem", img: "images/corrupted_stem.png", value: "145K", demand: "9/10", rarity: "Exclusive", status: "unstable", top: true},
+      { name: "Witchleaf", img: "images/witchleaf.png", value: "1М", demand: "10/10", rarity: "Godly", status: "unstable", top: true },
       { name: "Prismleaf", img: "images/prismleaf.png", value: "140К", demand: "8/10", rarity: "Godly", status: "unstable" },
       { name: "Subzero Stem", img: "images/subzero_stem.png", value: "67K", demand: "7/10", rarity: "Godly", status: "unstable" },
       { name: "Teslaflora", img: "images/teslaflora.png", value: "250K", demand: "10/10", rarity: "Exclusive", status: "scatter" },
       { name: "Strongest Punch Potato", img: "images/SPP.png", value: "48K", demand: "6/10", rarity: "Exclusive", status: "down" },
       { name: "Earth Dragon", img: "images/ED.png", value: "34K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
       { name: "Transfiguration Flower", img: "images/trans.png", value: "17K", demand: "7/10", rarity: "Exclusive", status: "up" },
-      { name: "Bouncing Shroom", img: "images/bouncing.png", value: "", demand: "10/10", rarity: "Godly", status: "up" },
+      { name: "Bouncing Shroom", img: "images/bouncing.png", value: "19К", demand: "10/10", rarity: "Godly", status: "up" },
       { name: "Bunny Burrow", img: "images/burrow.png", value: "34K", demand: "7/10", rarity: "Godly", status: "unstable" },
       { name: "Beehive", img: "images/beehive.png", value: "14K", demand: "7/10", rarity: "Godly", status: "unstable" },
-      { name: "Champion Bee Stinger", img: "images/champion.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Champion Bee Stinger", img: "images/champion.png", value: "160K", demand: "6/10", rarity: "Exclusive", status: "unstable" },
       { name: "Big Mushroom", img: "images/big_mushroom.png", value: "14K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Auranji", img: "images/auranji.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Auranji", img: "images/auranji.png", value: "7K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
       { name: "Astraflora", img: "images/astraflora.png", value: "14K", demand: "7/10", rarity: "Exclusive", status: "up" },
-      { name: "Blossom Barrage", img: "images/blossom_barrage.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Bunny Mech", img: "images/bunny_mech.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Chicken Coop", img: "images/chicken_coop.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Confusiflora", img: "images/confusiflora.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Dual Blasterbud", img: "images/dual_blasterbud.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Blossom Barrage", img: "images/blossom_barrage.png", value: "78K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bunny Mech", img: "images/bunny_mech.png", value: "12K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Chicken Coop", img: "images/chicken_coop.png", value: "12К", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Confusiflora", img: "images/confusiflora.png", value: "6K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Dual Blasterbud", img: "images/dual_blasterbud.png", value: "8K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
       { name: "Egg Plantinum", img: "images/egg_plantinum.png", value: "16K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Frost Golem", img: "images/frost_golem.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Frankensprout", img: "images/frankensprout.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Frostshade", img: "images/frostshade.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Banana Peel", img: "images/banana_peel.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Firecore Stem", img: "images/firecore_stem.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Timekeeper", img: "images/timekeeper.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Voltshade", img: "images/voltshade.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Watering Can", img: "images/watering_can.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Toxibud", img: "images/toxibud.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Star Fruit", img: "images/star_fruit.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Toxic Mushroom", img: "images/toxic_mushroom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Shufflecap", img: "images/shufflecap.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Rosebeam", img: "images/rosebeam.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Regeneration Flower", img: "images/regeneration.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Rocketroot", img: "images/rocketroot.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Powerstem", img: "images/powerstem.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Multisaw Flower", img: "images/multisaw.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Lava Flower", img: "images/lava_flower.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Laser Lily", img: "images/laser_lily.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Hellroot", img: "images/hellroot.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Iced Prismflower", img: "images/iced_prismflower.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Golem", img: "images/golem.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Ice Dragon", img: "images/ice_dragon.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Aethervine", img: "images/aetherwine.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Astral Blossom", img: "images/astral_blossom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Beamstalk", img: "images/beamstalk.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Bird Fountain", img: "images/bird_fountain.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Black Clover", img: "images/black_clover.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Blazewood", img: "images/blazewood.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Bloominator", img: "images/bloominator.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Bloomnova", img: "images/bloomnova.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Butterfly Hut", img: "images/butterfly_hut.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Candycane Bloom", img: "images/candycane.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Carrotastophe", img: "images/carrotastophe.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Charm Blossom", img: "images/charm_blossom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Corn Commander", img: "images/corn_commander.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Cryolesia", img: "images/cryolesia.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Frost Golem", img: "images/frost_golem.png", value: "19K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Frankensprout", img: "images/frankensprout.png", value: "2K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Frostshade", img: "images/frostshade.png", value: "1.4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Banana Peel", img: "images/banana_peel.png", value: "2K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Firecore Stem", img: "images/firecore_stem.png", value: "3K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Timekeeper", img: "images/timekeeper.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Voltshade", img: "images/voltshade.png", value: "3K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Watering Can", img: "images/watering_can.png", value: "7K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Toxibud", img: "images/toxibud.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Star Fruit", img: "images/star_fruit.png", value: "3K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Toxic Mushroom", img: "images/toxic_mushroom.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Shufflecap", img: "images/shufflecap.png", value: "4K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Rosebeam", img: "images/rosebeam.png", value: "12K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Regeneration Flower", img: "images/regeneration.png", value: "19K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Rocketroot", img: "images/rocketroot.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Powerstem", img: "images/powerstem.png", value: "3K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Multisaw Flower", img: "images/multisaw.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Lava Flower", img: "images/lava_flower.png", value: "3K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Laser Lily", img: "images/laser_lily.png", value: "3К", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Hellroot", img: "images/hellroot.png", value: "6K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Iced Prismflower", img: "images/iced_prismflower.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Golem", img: "images/golem.png", value: "6K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Ice Dragon", img: "images/ice_dragon.png", value: "1.5K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Aethervine", img: "images/aetherwine.png", value: "3К", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Astral Blossom", img: "images/astral_blossom.png", value: "2K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Beamstalk", img: "images/beamstalk.png", value: "750", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bird Fountain", img: "images/bird_fountain.png", value: "4K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Black Clover", img: "images/black_clover.png", value: "6K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Blazewood", img: "images/blazewood.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bloominator", img: "images/bloominator.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bloomnova", img: "images/bloomnova.png", value: "1.5K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Butterfly Hut", img: "images/butterfly_hut.png", value: "2K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Candycane Bloom", img: "images/candycane.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Carrotastophe", img: "images/carrotastophe.png", value: "800", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Charm Blossom", img: "images/charm_blossom.png", value: "1.6K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Corn Commander", img: "images/corn_commander.png", value: "800", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Cryolesia", img: "images/cryolesia.png", value: "1.6K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
       { name: "Dark Shardpetal", img: "images/dark_shardpetal.png", value: "3K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Doompetal", img: "images/doompetal.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Diamond Nightshade", img: "images/diamond_nightshade.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Dream Petal", img: "images/dream_petal.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Egg Basketstem", img: "images/egg_basketstem.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Electric Beetroot", img: "images/electric_beetroot.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Elemental Bloom", img: "images/elemental_bloom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Festive Bulbpetal", img: "images/festive_bulbpetal.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Festive Glowthorn", img: "images/festive_glowthorn.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Floral Overseer", img: "images/floral_overseer.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Gemspire", img: "images/gemspire.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Gnomatic Saw", img: "images/gnomatic_saw.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Holographic Clover", img: "images/holographic.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Inferno Bloom", img: "images/inferno_bloom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Infinity Petal", img: "images/infinity_petal.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Ion Iris", img: "images/ion_iris.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Iris Of Thorns", img: "images/iris_of_thorns.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Juggercorn", img: "images/juggercorn.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Kaboom Shroom", img: "images/kaboom_shroom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Loveburst Bloom", img: "images/loveburst.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Masters Banana Peel", img: "images/master.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Nightshade", img: "images/nightshade.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Octoshroom", img: "images/octoshroom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Ooga Booga", img: "images/ooga_booga.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
-      { name: "Plant In The Box", img: "images/plant_in_the_box.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Doompetal", img: "images/doompetal.png", value: "2K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Diamond Nightshade", img: "images/diamond_nightshade.png", value: "48K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Dream Petal", img: "images/dream_petal.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Egg Basketstem", img: "images/egg_basketstem.png", value: "6K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Electric Beetroot", img: "images/electric_beetroot.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Elemental Bloom", img: "images/elemental_bloom.png", value: "750", demand: "3/10", rarity: "Exclusive", status: "stable" },
+      { name: "Festive Bulbpetal", img: "images/festive_bulbpetal.png", value: "1.5K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Festive Glowthorn", img: "images/festive_glowthorn.png", value: "3K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Floral Overseer", img: "images/floral_overseer.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Gemspire", img: "images/gemspire.png", value: "3K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Gnomatic Saw", img: "images/gnomatic_saw.png", value: "700", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Holographic Clover", img: "images/holographic.png", value: "6K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Inferno Bloom", img: "images/inferno_bloom.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Infinity Petal", img: "images/infinity_petal.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Ion Iris", img: "images/ion_iris.png", value: "2K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Iris Of Thorns", img: "images/iris_of_thorns.png", value: "800", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Juggercorn", img: "images/juggercorn.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Kaboom Shroom", img: "images/kaboom_shroom.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Loveburst Bloom", img: "images/loveburst.png", value: "2К", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Masters Banana Peel", img: "images/master.png", value: "74K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Nightshade", img: "images/nightshade.png", value: "500", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Octoshroom", img: "images/octoshroom.png", value: "500", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Ooga Booga", img: "images/ooga_booga.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Plant In The Box", img: "images/plant_in_the_box.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
       { name: "Shockshroom", img: "images/shocksshroom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
       { name: "Shocolateflora", img: "images/shocoflora.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
       { name: "Solarian Bloom", img: "images/solarian_bloom.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
@@ -224,48 +234,110 @@
       { name: "Stick Petal", img: "images/stickpetal.png", value: "410K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
       { name: "Venus Flytrap", img: "images/venus_flytrap.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
       { name: "Winterray Flower", img: "images/winter.png", value: "48К", demand: "7/10", rarity: "Godly", status: "unstable" },
-      { name: "Super Sprout", img: "images/super_sprout.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Shadestool", img: "images/shadestool.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Mudmauler", img: "images/mudmauler.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Mango Cluster", img: "images/mango_cluster.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Lucky Clover", img: "images/lucky_clover.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
+      { name: "Super Sprout", img: "images/super_sprout.png", value: "750", demand: "4/10", rarity: "Godly", status: "unstable" },
+      { name: "Shadestool", img: "images/shadestool.png", value: "4K", demand: "4/10", rarity: "Godly", status: "unstable" },
+      { name: "Mudmauler", img: "images/mudmauler.png", value: "6K", demand: "6/10", rarity: "Godly", status: "unstable" },
+      { name: "Mango Cluster", img: "images/mango_cluster.png", value: "6K", demand: "5/10", rarity: "Godly", status: "unstable" },
+      { name: "Lucky Clover", img: "images/lucky_clover.png", value: "6K", demand: "5/10", rarity: "Godly", status: "unstable" },
       { name: "Ghost Shroom", img: "images/ghost_shroom.png", value: "1.5K", demand: "7/10", rarity: "Godly", status: "unstable" },
-      { name: "Fungal Barrage", img: "images/fungal_barrage.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Enchanting Rose", img: "images/enchanting_rose.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Eggsnare Sprout", img: "images/egg_sprout.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Egg Petalbox", img: "images/egg_petal.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
-      { name: "Distortion Flower", img: "images/distortion.png", value: "410K", demand: "9/10", rarity: "Godly", status: "unstable" },
+      { name: "Fungal Barrage", img: "images/fungal_barrage.png", value: "2K", demand: "3/10", rarity: "Godly", status: "unstable" },
+      { name: "Enchanting Rose", img: "images/enchanting_rose.png", value: "800", demand: "4/10", rarity: "Godly", status: "unstable" },
+      { name: "Eggsnare Sprout", img: "images/egg_sprout.png", value: "4K", demand: "5/10", rarity: "Godly", status: "unstable" },
+      { name: "Egg Petalbox", img: "images/egg_petal.png", value: "6K", demand: "5/10", rarity: "Godly", status: "unstable" },
+      { name: "Distortion Flower", img: "images/distortion.png", value: "14K", demand: "5/10", rarity: "Godly", status: "unstable" },
       { name: "Confusion Plant", img: "images/confusion_plant.png", value: "10K", demand: "7/10", rarity: "Godly", status: "unstable" },
       { name: "Blinkbloom", img: "images/blinkbloom.png", value: "14.5K", demand: "8/10", rarity: "Exclusive", status: "unstable" },
       { name: "X2 Seeds GIFT", img: "images/x2seeds_gift.png", value: "13K", demand: "7/10", rarity: "Gamepass", status: "up" },
-      { name: "VIP GIFT", img: "images/vip_gift.png", value: "410K", demand: "9/10", rarity: "Gamepass", status: "unstable" },
-      { name: "Sandbox GIFT", img: "images/sandbox_gift.png", value: "410K", demand: "9/10", rarity: "Gamepass", status: "unstable" },
-      { name: "X2 Presents GIFT", img: "images/presents_gift.png", value: "410K", demand: "9/10", rarity: "Gamepass", status: "unstable" },
-      { name: "Golem GIFT", img: "images/golem_gift.png", value: "410K", demand: "9/10", rarity: "Gamepass", status: "unstable" },
-      { name: "3X Game Speed GIFT", img: "images/3x_gift.png", value: "410K", demand: "9/10", rarity: "Gamepass", status: "unstable" },
+      { name: "VIP GIFT", img: "images/vip_gift.png", value: "9K", demand: "6/10", rarity: "Gamepass", status: "unstable" },
+      { name: "Sandbox GIFT", img: "images/sandbox_gift.png", value: "9K", demand: "6/10", rarity: "Gamepass", status: "unstable" },
+      { name: "X2 Presents GIFT", img: "images/presents_gift.png", value: "14K", demand: "5/10", rarity: "Gamepass", status: "unstable" },
+      { name: "Golem GIFT", img: "images/golem_gift.png", value: "660K", demand: "9/10", rarity: "Gamepass", status: "unstable", top: true },
+      { name: "3X Game Speed GIFT", img: "images/3x_gift.png", value: "7K", demand: "5/10", rarity: "Gamepass", status: "unstable" },
       { name: "X2 CandyCorns GIFT", img: "images/candycorn_gift.png", value: "41K", demand: "6/10", rarity: "Gamepass", status: "unstable" },
-      { name: "X2 Easter Eggs GIFT", img: "images/egg_gift.png", value: "410K", demand: "7/10", rarity: "Gamepass", status: "unstable" },
-      { name: "+1 Equipment Unit GIFT", img: "images/+1unit_gift.png", value: "410K", demand: "9/10", rarity: "Gamepass", status: "unstable" },
+      { name: "X2 Easter Eggs GIFT", img: "images/egg_gift.png", value: "6K", demand: "5/10", rarity: "Gamepass", status: "unstable" },
+      { name: "+1 Equipment Unit GIFT", img: "images/+1unit_gift.png", value: "200", demand: "2/10", rarity: "Gamepass", status: "stable" },
       { name: "Ginderbread Seedmill", img: "images/old_seedmill.png", value: "10.5K", demand: "7/10", rarity: "Legendary", status: "unstable" },
       { name: "Seedmill", img: "images/seedmill.png", value: "500", demand: "6/10", rarity: "Legendary", status: "unstable" },
       { name: "Chompman", img: "images/chomp_man.png", value: "130К", demand: "8/10", rarity: "Godly", status: "unstable" },
-      { name: "Grapes", img: "images/grapes.png", value: "349 К", demand: "10/10", rarity: "Exclusive", status: "unstable" }
+      { name: "voidanium", img: "images/voidanium.png", value: "4К", demand: "6/10", rarity: "Exclusive", status: "unstable", new: true},
+      { name: "Magnetroot", img: "images/magnetroot.png", value: "2К", demand: "5/10", rarity: "Exclusive", status: "unstable", new: true },
+      { name: "Hypnogaze Stem", img: "images/hypnogaze_stem.png", value: "6К", demand: "7/10", rarity: "Exclusive", status: "unstable", new: true },
+      { name: "Lullabloom", img: "images/lullabloom.png", value: "3К", demand: "6/10", rarity: "Exclusive", status: "unstable", new: true },
+      { name: "Grapes", img: "images/grapes.png", value: "550", demand: "3/10", rarity: "Exclusive", status: "unstable" }
     ];
-
-     // ==================== ЦВЕТА ДЛЯ РЕДКОСТЕЙ ====================
-  //  function getRarityStyle(rarity) {
-   //   const map = {
-   //     "Legendary": "background:#CE2626; color:white;",
-  //      "Godly": "background:#B33791; color:white;",
-  //      "Exclusive": "background:#831C91; color:white;",
- //       "Gamepass": "background:#F2B50B; color:black;"
-        // "Prismatic": "background:#f472b6; color:white;",
- //     };
- //     return map[rarity] || "background:#475569; color:white;";
- //   }
-    
+  
     function getRarityStyle(rarity) {
       if (rarity === "Legendary") return `<div class="rarity" style="background:#CE2626; color:white;">Легендарный</div>`;
       if (rarity === "Exclusive") return `<div class="rarity" style="background:#831C91; color:white;">Эксклюзивный</div>`;
-      if (rarity === "Godly") return `<div class="rarity" style="background:#B33791; color:white;">Божественный</div>`;
-      if (rarity === "Gamepass") return `<div class="rarity" style="bac
+   if (rarity === "Godly") return `<div class="rarity" style="background:#B33791; color:white;">Божественный</div>`;
+     if (rarity === "Gamepass") return `<div class="rarity" style="background:#F2B50B; color:white;">Геймпасс</div>`;
+     return '';
+   }
+
+      function getStatusHTML(status) {
+      if (status === "up") return `<div class="status" style="background:#14532d; color:white;">↑ Рост</div>`;
+      if (status === "down") return `<div class="status" style="background:#7f1d1d; color:white;">↓ Падение</div>`;
+      if (status === "stable") return `<div class="status" style="background:#78350f; color:white;">→ Стабильно</div>`;
+      if (status === "unstable") return `<div class="status" style="background:#312e81; color:white;">↯ Нестабильно</div>`;
+      if (status === "scatter") return `<div class="status" style="background:#1E104E; color:white;">⟨⟩ Разброс цены</div>`;
+      return '';
+    }
+    
+    function renderUnits(filtered) {
+      const grid = document.getElementById('unitGrid');
+      grid.innerHTML = '';
+
+      filtered.forEach(unit => {
+        const card = document.createElement('div');
+        card.className = 'unit-card';
+        card.innerHTML = `
+          <img src="${unit.img}" onerror="this.src='images/placeholder.png'">
+          <div class="unit-name">${unit.name}</div>
+          <div class="value">${unit.value}</div>
+          <div class="demand">Спрос: ${unit.demand}</div>
+          <div class="rarity">${getRarityStyle(unit.rarity)}<div>
+          ${getStatusHTML(unit.status)}
+        `;
+        grid.appendChild(card);
+      });
+
+      document.getElementById('count').textContent = filtered.length;
+    }
+
+    function filterUnits() {
+  let filtered = [...units];
+  
+  const search = document.getElementById('search').value.toLowerCase().trim();
+  const rarity = document.getElementById('rarityFilter').value;
+  const typeFilter = document.getElementById('typeFilter').value;
+
+  if (search) {
+    filtered = filtered.filter(u => u.name.toLowerCase().includes(search));
+  }
+  if (rarity) {
+    filtered = filtered.filter(u => u.rarity === rarity); // все
+  }
+  if (typeFilter === "new") {
+    filtered = filtered.filter(u => u.new === true);   // только новые
+  }
+  if (typeFilter === "top") {
+    filtered = filtered.filter(u => u.top === true);   // только в топе
+  }
+
+  renderUnits(filtered, 'unitGrid');
+  renderUnits(filtered, 'tierGrid');
+}
+  
+    function resetFilters() {
+      document.getElementById('search').value = '';
+      document.getElementById('rarityFilter').value = '';
+      filterUnits();
+    }
+
+    window.onload = () => {
+      
+      renderUnits(units);
+    };
+  </script>
+</body>
+</html>
