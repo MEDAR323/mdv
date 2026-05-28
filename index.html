@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDV - Garden Tower Defense Values</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+    }
+   /* Анимация для главных вкладок */
+.main-tab {
+  padding: 14px 32px;
+  background: #1f1f1f;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.alt-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.alt-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.alt-btn:active {
+  transform: scale(0.95);
+}
+.main-tab.active {
+  background: #4ade80;
+  color: black;
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+}
+
+/* Анимация для маленьких вкладок */
+.tab {
+  padding: 13px 28px;
+  background: #1f1f1f;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.25s ease;
+}
+
+.tab.active {
+  background: #4ade80;
+  color: black;
+  transform: scale(1.06);
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+}
+  .changelog-item {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  border-left: 5px solid #4ade80;
+  transition: all 0.3s ease;
+}
+
+.changelog-item:hover {
+  transform: translateX(8px);
+  box-shadow: 0 10px 25px rgba(74, 222, 128, 0.15);
+}
+
+.changelog-version {
+  color: #4ade80;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.changelog-item h3 {
+  margin: 0 0 12px 0;
+  color: #eee;
+}
+
+.changelog-item ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.changelog-item li {
+  margin: 6px 0;
+  color: #ccc;
+}
+.header {
+  background: #111;
+  padding: 5px 5px;
+  text-align: center;
+  border-bottom: 5px solid #a855f7;
+  position: relative;           /* Важно */
+  overflow: hidden;             /* Важно */
+  min-height: 200px;            /* Чтобы было место для фона */
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('host-images/header-bg.png') center/cover no-repeat;
+  opacity: 0.50;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Градиент для лучшей читаемости текста */
+.header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(transparent, rgba(10,10,10,0.75));
+  z-index: 2;
+}
+
+/* Контент поверх фона */
+.header > * {
+  position: relative;
+  z-index: 3;
+}
+    h1 { color: #4ade80; margin: 0; font-size: 2.5em; }
+    .subtitle { color: #888; margin: 10px 0 0; }
+
+    .social-links { margin-top: 20px; }
+    .social-links a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 12px 24px;
+      background: #1f1f1f;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .social-links a:hover { background: #4ade80; color: black; }
+
+    .controls {
+      background: #111;
+      padding: 22px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    input, select, button {
+      padding: 13px 18px;
+      font-size: 16px;
+      border-radius: 8px;
+      background: #1f1f1f;
+      color: white;
+      border: none;
+    }
+    button { 
+      background: #4ade80; 
+      color: black; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+  #searchSuggestions .suggestion-item {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #252525;
+}
+
+#searchSuggestions .suggestion-item:last-child {
+  border-bottom: none;
+}
+
+#searchSuggestions .suggestion-item:hover {
+  background: #272727;
+  padding-left: 24px;
+}
+
+#searchSuggestions img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.suggestion-name {
+  font-weight: 600;
+  flex: 1;
+}
+
+.suggestion-value {
+  color: #4ade80;
+  font-weight: bold;
+}
+.compact-mode .unit-grid,
+.compact-mode .tier-grid {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 12px;
+}
+
+.wide-mode .unit-grid,
+.wide-mode .tier-grid {
+  grid-template-columns: repeat(6, 1fr) !important;
+  gap: 10px;
+}
+
+.wide-mode .unit-card img {
+  height: 110px;
+}
+
+.tabs {
+  background: #111;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+  .main-section { display: none; }
+.main-section.active { display: block; }
+
+  /*.sub-section {
+  display: none !important;
+}
+
+.sub-section.active {
+  display: block !important;
+} */
+  
+  .section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+  .sub-section {
+  transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+  opacity: 0;
+  transform: translateX(40px);
+  position: relative;
+}
+
+.sub-section.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Анимация при свайпе влево (следующая вкладка) */
+.sub-section.swipe-left {
+  transform: translateX(-80px);
+  opacity: 0;
+}
+
+/* Анимация при свайпе вправо (предыдущая вкладка) */
+.sub-section.swipe-right {
+  transform: translateX(80px);
+  opacity: 0;
+}
+    .unit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+      gap: 20px;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+    .unit-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+    .unit-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      background: #111;
+      border-radius: 10px;
+    }
+    .unit-name { font-size: 1.25em; font-weight: bold; margin: 12px 0 10px; }
+    .value { color: #fbbf24; font-size: 1.6em; font-weight: bold; }
+    .demand { font-weight: 600; margin: 8px 0; }
+    .rarity {
+      font-size: 0.95em;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-top: 10px;
+      display: inline-block;
+      font-weight: bold;
+    }
+    .status {
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+  /* решение этой тупой синей/серой обводки */
+button, .tab, .main-tab, a, input, select, [onclick] {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+/* При нажатии — красивое нажатие */
+button:active, .tab:active, .main-tab:active {
+  transform: scale(0.96);
+  transition: transform 0.08s ease;
+}
+  button[onclick="showAuthors()"]:active {
+  transform: scale(0.92) !important;
+  background: #4ade80 !important;
+  color: black !important;
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.6);
+}
+  </style>
+</head>
+<div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:1000; align-items:center; justify-content:center;">
+  <div style="background:#1a1a1a; width:92%; max-width:460px; border-radius:16px; padding:20px;">
+    <h3 id="modalTitle" style="text-align:center; margin:0 0 15px 0;">Добавить юнит</h3>
+    
+    <input type="text" id="modalSearch" placeholder="🔍 Поиск..." onkeyup="filterModalUnits()" style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; background:#222; border:none; color:white;">
+    
+    <div id="modalList" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(130px, 1fr)); gap:12px; max-height:50vh; overflow:auto;"></div>
+    
+    <button onclick="closeModal()" style="width:100%; margin-top:15px; padding:14px; background:#ef4444; border:none; border-radius:10px; color:white;">Закрыть</button>
+  </div>
+</div>
+<body>
+
+  <div class="header">
+    <h1 style="color: #a855f7;">MDV</h1>
+    <p class="subtitle">MDV • MD values</p>
+<div style="margin-top:12px; font-size:15px; color:#aaa;" id="countdown">
+  До следующего обновления: <span id="timer" style="color:#4ade80; font-weight:bold;">--</span>
+</div>
+    <div class="social-links">
+      <a href="https://t.me/official_medar323" id="channel" target="_blank">📢 Мой Канал </a>
+    </div>
+  </div>
+  
+<!-- ==================== ГЛАВНЫЕ ВКЛАДКИ ИГР ==================== -->
+<div class="main-tabs" style="background:#0a0a0a; padding:16px 0; display:flex; justify-content:center; gap:15px; flex-wrap:wrap; border-bottom:4px solid #4ade80;">
+  <span class="main-tab active" onclick="switchMainTab(0)" id="mainTab0">🌱 Garden Tower Defense</span>
+  <span class="main-tab" onclick="switchMainTab(1)" id="mainTab1">🟡 Noob Tower Defense (в разработке)</span>
+</div>
+
+<!-- ==================== GARDEN TOWER DEFENSE ==================== -->
+<div id="mainSection0" class="main-section active">
+
+  <div class="tabs">
+    <span class="tab active" onclick="switchSubTab(0)">Список</span>
+    <span class="tab" onclick="switchSubTab(1)">Калькулятор</span>
+  </div>
+
+  <!-- Список GTD -->
+  <div id="sub0-0" class="sub-section active">
+    <div class="controls">
+      <div style="position:relative; max-width:460px; margin:0 auto 15px auto;">
+  <input type="text" id="search" placeholder=" Поиск юнита..." 
+         onkeyup="showSearchSuggestions()" 
+         style="width:100%; padding:16px 20px 16px 55px; font-size:17px; background:#1f1f1f; border:none; border-radius:14px; color:white; box-shadow:0 4px 15px rgba(0,0,0,0.4);">
+  
+  <!-- Иконка поиска -->
+  <span style="position:absolute; left:22px; top:50%; transform:translateY(-50%); font-size:20px; color:#888;">🔍</span>
+
+  <!-- Блок подсказок -->
+  <div id="searchSuggestions" style="display:none; position:absolute; top:100%; left:0; width:100%; background:#1a1a1a; border-radius:14px; margin-top:8px; max-height:420px; overflow:auto; z-index:1000; box-shadow:0 15px 35px rgba(0,0,0,0.7); border:1px solid #333;">
+  </div>
+</div>
+      
+      <select id="rarityFilter" onchange="filterUnits()" style="flex: 1; min-width: 100px;">
+      <option value="">Все редкости</option>
+      <option value="Legendary">Легендарные</option>
+      <option value="Godly">Божественные</option>
+      <option value="Exclusive">Эксклюзивные</option>
+      <option value="Gamepass">Геймпассы</option>
+    </select>
+    
+    <select id="typeFilter" onchange="filterUnits()" style="margin:5px 5px 15px auto; flex: 1; min-width: 100px;">
+  <option value="">Все юниты</option>
+  <option value="new">Новые юниты</option>
+  <option value="top">В топе</option>
+  <option value="rb">Радужные юниты</option>
+  <option value="asc">По возрастанию цены ↑</option>
+  <option value="desc">По убыванию цены ↓</option>
+</select>
+
+    
+<button onclick="toggleViewMenu()" id="viewBtn"
+  style="margin:5px 120px 15px auto; display:block; background:#1f1f1f; color:white; border:none; padding:16px 26px; border-radius:10px; cursor:pointer; font-size:16px; min-width: 200px;">
+  📏 <span id="currentViewText">Обычный вид</span>
+</button>
+     
+    
+<div id="viewMenu" style="display:none; position:absolute; left:20%; transform:translateX(-50%); background:#1f1f1f; border-radius:12px; padding:8px 0; box-shadow:0 10px 30px rgba(0,0,0,0.8); z-index:200; min-width:230px;">
+  <div onclick="setViewMode('normal')" style="padding:12px 24px; cursor:pointer;">📋 Обычный вид</div>
+  <div onclick="setViewMode('compact')" style="padding:12px 24px; cursor:pointer;">📏 Компактный вид</div>
+  <div onclick="setViewMode('wide')" style="padding:12px 24px; cursor:pointer;">📐 Обширный вид</div>
+</div>  
+      
+      <button onclick="resetFilters()">Сбросить всё</button>
+    </div>
+
+    <div style="text-align:center; margin:20px 0 30px; color:#777;">
+      Найдено: <strong id="count">0</strong> юнитов
+    </div>
+
+    <div class="unit-grid" id="unitGrid"></div>
+  </div>
+
+  <!-- Калькулятор GTD -->
+  <div id="sub0-1" class="sub-section">
+    <h2 style="text-align:center; margin:25px 0 30px 0;">Калькулятор трейдов</h2>
+    
+    <div style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center;">
+      <div style="background:#1a1a1a; padding:20px; border-radius:16px; width:100%; max-width:400px;">
+        <h3>Отдаёшь</h3>
+        <button onclick="openModal('give')" style="width:100%; padding:15px; margin:10px 0; background:#3b82f6; border:none; border-radius:12px; color:white;">+ Добавить юнит</button>
+        <div id="giveList" style="min-height:120px;"></div>
+      </div>
+
+      <div style="background:#1a1a1a; padding:20px; border-radius:16px; width:100%; max-width:400px;">
+        <h3>Получаешь</h3>
+        <button onclick="openModal('receive')" style="width:100%; padding:15px; margin:10px 0; background:#3b82f6; border:none; border-radius:12px; color:white;">+ Добавить юнит</button>
+        <div id="receiveList" style="min-height:120px;"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin:30px 0; font-size:1.8em;">
+      <strong id="totalGive">Даёшь: 0</strong> ←→ <strong id="totalReceive">Получаешь: 0</strong>
+    </div>
+
+    <div id="tradeResult" style="text-align:center; font-size:1.4em; min-height:80px;"></div>
+
+    <button onclick="clearTrade()" style="width:100%; max-width:400px; display:block; margin:20px auto; padding:15px; background:#ef4444; border:none; border-radius:12px; color:white;">Очистить калькулятор</button>
+  </div>
+</div>
+
+<!-- ==================== NOOB TOWER DEFENSE ==================== -->
+<div id="mainSection1" class="main-section">
+  <div class="tabs">
+    <span class="tab active" onclick="switchSubTab(0)">Список</span>
+    <span class="tab" onclick="switchSubTab(1)">Калькулятор</span>
+  </div>
+
+  <!-- Список NTD -->
+  <div id="sub1-0" class="sub-section active">
+    <h2 style="text-align:center; margin:30px 0;">Список Noob Tower Defense</h2>
+    <p style="text-align:center; padding:80px; color:#666;">В разработке...</p>
+  </div>
+
+  <!-- Калькулятор NTD -->
+  <div id="sub1-1" class="sub-section">
+    <h2 style="text-align:center; margin:30px 0;">Калькулятор Noob Tower Defense</h2>
+    <p style="text-align:center; padding:80px; color:#666;">В разработке...</p>
+  </div>
+</div>
+  
+  
+
+  <button onclick="showChangelog()" 
+  style="position:absolute; top:20px; right:375px; background:#1f1f1f; color:white; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-size:15px; z-index:10; 
+         transition: all 0.15s ease; transform: scale(1);">
+  📜 Обновления
+</button>
+  
+ <button onclick="showAuthors()" 
+  style="position:absolute; top:20px; right:20px; background:#1f1f1f; color:white; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-size:15px; z-index:10; 
+         transition: all 0.15s ease; transform: scale(1);">
+  👥 Авторы
+</button>
+  
+  <script>
+    let units = [
+      { name: "Corrupted Stem", img: "images/corrupted_stem.png", value: "135K", demand: "9/10", rarity: "Exclusive", status: "unstable", top: true},
+      { name: "Witchleaf", img: "images/witchleaf.png", value: "970k", demand: "10/10", rarity: "Godly", status: "unstable", top: true },
+      { name: "Prismleaf", img: "images/prismleaf.png", value: "140К", demand: "8/10", rarity: "Godly", status: "unstable", top: true },
+      { name: "Subzero Stem", img: "images/subzero_stem.png", value: "90K", demand: "8/10", rarity: "Godly", status: "up", top: true },
+      { name: "Teslaflora", img: "images/teslaflora.png", value: "138K", demand: "8/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Strongest Punch Potato", img: "images/SPP.png", value: "38K", demand: "5/10", rarity: "Exclusive", status: "down" },
+      { name: "Earth Dragon", img: "images/ED.png", value: "29K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Transfiguration Flower", img: "images/trans.png", value: "70K", demand: "9/10", rarity: "Exclusive", status: "up", top: true },
+      { name: "Infectia", img: "images/infectia.png", value: "87K", demand: "8/10", rarity: "Exclusive", status: "unstable", top: true },
+      { name: "Bouncing Shroom", img: "images/bouncing.png", value: "22К", demand: "7/10", rarity: "Godly", status: "unstable" },
+      { name: "Bunny Burrow", img: "images/burrow.png", value: "22K", demand: "7/10", rarity: "Godly", status: "unstable" },
+      { name: "Beehive", img: "images/beehive.png", value: "11K", demand: "7/10", rarity: "Godly", status: "unstable" },
+      { name: "Champion Bee Stinger", img: "images/champion.png", value: "160K", demand: "6/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Big Mushroom", img: "images/big_mushroom.png", value: "15K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Auranji", img: "images/auranji.png", value: "7K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Astraflora", img: "images/astraflora.png", value: "13K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Blossom Barrage", img: "images/blossom_barrage.png", value: "73K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bunny Mech", img: "images/bunny_mech.png", value: "7K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Chicken Coop", img: "images/chicken_coop.png", value: "10К", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Confusiflora", img: "images/confusiflora.png", value: "8K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Dual Blasterbud", img: "images/dual_blasterbud.png", value: "8K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Egg Plantinum", img: "images/egg_plantinum.png", value: "14K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Frost Golem", img: "images/frost_golem.png", value: "15K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Frankensprout", img: "images/frankensprout.png", value: "3K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Frostshade", img: "images/frostshade.png", value: "1.4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Banana Peel", img: "images/banana_peel.png", value: "2K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Firecore Stem", img: "images/firecore_stem.png", value: "3K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Timekeeper", img: "images/timekeeper.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Voltshade", img: "images/voltshade.png", value: "3K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Watering Can", img: "images/watering_can.png", value: "7K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Toxibud", img: "images/toxibud.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Star Fruit", img: "images/star_fruit.png", value: "3K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Toxic Mushroom", img: "images/toxic_mushroom.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Shufflecap", img: "images/shufflecap.png", value: "4K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Rosebeam", img: "images/rosebeam.png", value: "9K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Regeneration Flower", img: "images/regeneration.png", value: "16.5K", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Rocketroot", img: "images/rocketroot.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Powerstem", img: "images/powerstem.png", value: "3K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Multisaw Flower", img: "images/multisaw.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Lava Flower", img: "images/lava_flower.png", value: "3K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Laser Lily", img: "images/laser_lily.png", value: "3К", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Hellroot", img: "images/hellroot.png", value: "5K", demand: "9/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Iced Prismflower", img: "images/iced_prismflower.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Golem", img: "images/golem.png", value: "5K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Ice Dragon", img: "images/ice_dragon.png", value: "4K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Aethervine", img: "images/aetherwine.png", value: "3К", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Astral Blossom", img: "images/astral_blossom.png", value: "2K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Beamstalk", img: "images/beamstalk.png", value: "750", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bird Fountain", img: "images/bird_fountain.png", value: "4K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Black Clover", img: "images/black_clover.png", value: "8K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Blazewood", img: "images/blazewood.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bloominator", img: "images/bloominator.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Bloomnova", img: "images/bloomnova.png", value: "1.5K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Butterfly Hut", img: "images/butterfly_hut.png", value: "2K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Candycane Bloom", img: "images/candycane.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Carrotastophe", img: "images/carrotastophe.png", value: "800", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Charm Blossom", img: "images/charm_blossom.png", value: "1.9K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Corn Commander", img: "images/corn_commander.png", value: "1K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Cryolesia", img: "images/cryolesia.png", value: "4K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Dark Shardpetal", img: "images/dark_shardpetal.png", value: "3K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Doompetal", img: "images/doompetal.png", value: "2K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Diamond Nightshade", img: "images/diamond_nightshade.png", value: "48K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Dream Petal", img: "images/dream_petal.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Egg Basketstem", img: "images/egg_basketstem.png", value: "14K", demand: "6/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Electric Beetroot", img: "images/electric_beetroot.png", value: "6K", demand: "6/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Elemental Bloom", img: "images/elemental_bloom.png", value: "1.1К", demand: "3/10", rarity: "Exclusive", status: "stable" },
+      { name: "Festive Bulbpetal", img: "images/festive_bulbpetal.png", value: "1.5K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Festive Glowthorn", img: "images/festive_glowthorn.png", value: "3.5K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Floral Overseer", img: "images/floral_overseer.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Gemspire", img: "images/gemspire.png", value: "3K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Gnomatic Saw", img: "images/gnomatic_saw.png", value: "700", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Holographic Clover", img: "images/holographic.png", value: "8K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Inferno Bloom", img: "images/inferno_bloom.png", value: "1.8K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Infinity Petal", img: "images/infinity_petal.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Ion Iris", img: "images/ion_iris.png", value: "2K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Iris Of Thorns", img: "images/iris_of_thorns.png", value: "1.3К", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Juggercorn", img: "images/juggercorn.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Kaboom Shroom", img: "images/kaboom_shroom.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Loveburst Bloom", img: "images/loveburst.png", value: "2К", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Masters Banana Peel", img: "images/master.png", value: "74K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Nightshade", img: "images/nightshade.png", value: "500", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Octoshroom", img: "images/octoshroom.png", value: "500", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Ooga Booga", img: "images/ooga_booga.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Plant In The Box", img: "images/plant_in_the_box.png", value: "1.5K", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Shockshroom", img: "images/shocksshroom.png", value: "1.5K", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Shocolateflora", img: "images/shocoflora.png", value: "60K", demand: "9/10", rarity: "Exclusive", status: "up", top: true },
+      { name: "Solarian Bloom", img: "images/solarian_bloom.png", value: "750", demand: "1/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Spitjaw Flytrap", img: "images/spitjaw_flytrap.png", value: "2K", demand: "4/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Stick Petal", img: "images/stickpetal.png", value: "1.5K", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Venus Flytrap", img: "images/venus_flytrap.png", value: "6K", demand: "6/10", rarity: "Godly", status: "unstable" },
+      { name: "Winterray Flower", img: "images/winter.png", value: "68К", demand: "8/10", rarity: "Godly", status: "up" },
+      { name: "Super Sprout", img: "images/super_sprout.png", value: "750", demand: "4/10", rarity: "Godly", status: "unstable" },
+      { name: "Shadestool", img: "images/shadestool.png", value: "4K", demand: "4/10", rarity: "Godly", status: "unstable" },
+      { name: "Mudmauler", img: "images/mudmauler.png", value: "6K", demand: "6/10", rarity: "Godly", status: "unstable" },
+      { name: "Mango Cluster", img: "images/mango_cluster.png", value: "6K", demand: "5/10", rarity: "Godly", status: "unstable" },
+      { name: "Lucky Clover", img: "images/lucky_clover.png", value: "12K", demand: "7/10", rarity: "Godly", status: "unstable" },
+      { name: "Ghost Shroom", img: "images/ghost_shroom.png", value: "1.5K", demand: "7/10", rarity: "Godly", status: "unstable" },
+      { name: "Fungal Barrage", img: "images/fungal_barrage.png", value: "2K", demand: "3/10", rarity: "Godly", status: "unstable" },
+      { name: "Enchanting Rose", img: "images/enchanting_rose.png", value: "800", demand: "4/10", rarity: "Godly", status: "unstable" },
+      { name: "Eggsnare Sprout", img: "images/egg_sprout.png", value: "4K", demand: "5/10", rarity: "Godly", status: "unstable" },
+      { name: "Egg Petalbox", img: "images/egg_petal.png", value: "6K", demand: "5/10", rarity: "Godly", status: "unstable" },
+      { name: "Distortion Flower", img: "images/distortion.png", value: "9.5K", demand: "5/10", rarity: "Godly", status: "unstable" },
+      { name: "Confusion Plant", img: "images/confusion_plant.png", value: "11.5K", demand: "7/10", rarity: "Godly", status: "unstable" },
+      { name: "Blinkbloom", img: "images/blinkbloom.png", value: "16K", demand: "8/10", rarity: "Exclusive", status: "unstable" },
+      { name: "X2 Seeds GIFT", img: "images/x2_seeds_gift.png", value: "10.5K", demand: "7/10", rarity: "Gamepass", status: "up" },
+      { name: "VIP GIFT", img: "images/vip_gift.png", value: "9.5K", demand: "6/10", rarity: "Gamepass", status: "unstable" },
+      { name: "Sandbox GIFT", img: "images/sandbox_gift.png", value: "9K", demand: "6/10", rarity: "Gamepass", status: "unstable" },
+      { name: "X2 Presents GIFT", img: "images/x2_presents_gift.png", value: "5.5K", demand: "5/10", rarity: "Gamepass", status: "unstable" },
+      { name: "Golem GIFT", img: "images/golem_gift.png", value: "660K", demand: "9/10", rarity: "Gamepass", status: "unstable", top: true },
+      { name: "X3 Game Speed GIFT", img: "images/x3_speed_gift.png", value: "9K", demand: "5/10", rarity: "Gamepass", status: "unstable" },
+      { name: "X2 CandyCorns GIFT", img: "images/x2_candycorn_gift.png", value: "27K", demand: "6/10", rarity: "Gamepass", status: "unstable" },
+      { name: "X2 Easter Eggs GIFT", img: "images/x2_easter_eggs_gift.png", value: "6K", demand: "5/10", rarity: "Gamepass", status: "unstable" },
+      { name: "+1 Equipment Unit GIFT", img: "images/+1_unit_gift.png", value: "200", demand: "2/10", rarity: "Gamepass", status: "stable" },
+      { name: "Ginderbread Seedmill", img: "images/old_seedmill.png", value: "22K", demand: "8/10", rarity: "Legendary", status: "up" },
+      { name: "Seedmill", img: "images/seedmill.png", value: "500", demand: "6/10", rarity: "Legendary", status: "unstable" },
+      { name: "Chompman", img: "images/chomp_man.png", value: "120К", demand: "8/10", rarity: "Godly", status: "unstable" },
+      { name: "Peppermint Supernova", img: "images/supernova.png", value: "2К", demand: "3/10", rarity: "Godly", status: "unstable" },
+      { name: "Festive Garden Wardbell", img: "images/wardbell.png", value: "22К", demand: "8/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Nightspire", img: "images/nightspire.png", value: "750", demand: "2/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Obsidian Rose", img: "images/obsidian_rose.png", value: "1.5К", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "X2 Golden Tickets GIFT", img: "images/x2_golden_tickets_gift.png", value: "7.5K", demand: "6/10", rarity: "Gamepass", status: "unstable" },
+      { name: "X2 Space Gems GIFT", img: "images/x2_space_gems_gift.png", value: "6К", demand: "5/10", rarity: "Gamepass", status: "unstable" },
+      { name: "Voidanium", img: "images/voidanium.png", value: "6К", demand: "6/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Magnetroot", img: "images/magnetroot.png", value: "750", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Hypnogaze Stem", img: "images/hypnogaze_stem.png", value: "8К", demand: "7/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Lullabloom", img: "images/lullabloom.png", value: "2.5К", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Starbud", img: "images/starbud.png", value: "6К", demand: "7/10", rarity: "Exclusive", status: "unstable"},
+      { name: "Dynosprout", img: "images/dynosprout.png", value: "3К", demand: "5/10", rarity: "Exclusive", status: "unstable"},
+      { name: "Rainbow Confusion Plant", img: "images/rainbow_confus.png", value: "60К", demand: "7/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Money Tree", img: "images/rb_money_tree.png", value: "1.6K", demand: "6/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Pyropetal", img: "images/rb_pyropetal.png", value: "800", demand: "3/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Dandelion", img: "images/rb_dandelion.png", value: "100", demand: "2/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Tomato", img: "images/rb_tomato.png", value: "400", demand: "4/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Scarecrow", img: "images/rb_scarecrow.png", value: "100", demand: "2/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Pumpkrawler", img: "images/rb_pumpcrawler.png", value: "100", demand: "2/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Pumpkin", img: "images/rb_pumkin.png", value: "100", demand: "2/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Chili Pepper", img: "images/rb_pepper.png", value: "100", demand: "2/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Laser Plant", img: "images/rb_laser.png", value: "400", demand: "3/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Rainbow Bamboo", img: "images/rb_bamboo.png", value: "100", demand: "2/10", rarity: "Exclusive", status: "unstable", rb: true },
+      { name: "Rainbow Baby Carrots", img: "images/rb_carrots.png", value: "100", demand: "1/10", rarity: "Exclusive", status: "unstable", rb:true },
+      { name: "Toxileaf", img: "images/toxileaf.png", value: "3К", demand: "3/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Sentry Stem", img: "images/sentry_stem.png", value: "7К", demand: "5/10", rarity: "Exclusive", status: "unstable" },
+      { name: "Axolotl Hideout", img: "images/axolotl.png", value: "8К", demand: "7/10", rarity: "Exclusive", status: "unstable", new:true },
+      { name: "Treasure Trap", img: "images/treasure.png", value: "4К", demand: "7/10", rarity: "Exclusive", status: "unstable", new:true},
+      { name: "Sea Dragon", img: "images/sea_dragon.png", value: "120К", demand: "8/10", rarity: "Godly", status: "down", new:true},
+      { name: "Grapes", img: "images/grapes.png", value: "550", demand: "3/10", rarity: "Exclusive", status: "unstable" }
+    ];
+ function showChangelog() {
+  const modal = document.getElementById('changelogModal');
+  const content = document.getElementById('changelogContent');
+  
+  content.innerHTML = `
+   <div class="changelog-item">
+      <div class="changelog-version">v1.7 — 28 мая 2026</div>
+      <h3>Фикс багов + небольшие улучшения</h3>
+      <ul>
+        <li> Исправлены баги</li>
+        <li>  Улучшены некоторые функции</li>
+        <li>  Некоторые дополнения</li>
+      </ul>
+    </div>
+   <div class="changelog-item">
+      <div class="changelog-version">v1.6 — 21 мая 2026</div>
+      <h3>QoL обновление</h3>
+      <ul>
+        <li> Добавлена кнопка "варианты"</li>
+        <li>  Добавлен красивый умный поиск с подсказками</li>
+        <li>  Добавлен свайп влево/вправо между вкладками</li>
+        <li>  Добавлен этот список обновлений + история</li> 
+        <li>  Добавлен логотип-фон</li>
+        <li>  Фикс некоторых ошибок</li>
+        <li> И другие изменения</li>
+      </ul>
+    </div>
+   <div class="changelog-item">
+      <div class="changelog-version">v1.5 — 18 мая 2026</div>
+      <h3>Новые функции, юниты + фикс багов</h3>
+      <ul>
+        <li> Исправлен баг с калькулятором</li>
+        <li> Добавлена кнопка "вверх" при прокручивании страницы</li>
+        <li>  Добавлен фильтр "радужные" и многие рб юниты</li>
+        <li> И другие изменения</li>
+      </ul>
+    </div>
+    <div class="changelog-item">
+      <div class="changelog-version">v1.4 — 13 мая 2026</div>
+      <h3>Фикс багов</h3>
+      <ul>
+        <li> Исправлены ошибки</li>
+        <li>   Исправлен неправильный визуал</li>
+        <li> И другие изменения</li>
+      </ul>
+    </div>
+
+    <div class="changelog-item">
+      <div class="changelog-version">v1.3 — 11 мая 2026</div>
+      <h3>Базовые анимации + другие улучшения</h3>
+      <ul>
+        <li> Добавлен список авторов</li>
+        <li> Добавлены базовые анимации</li>
+        <li> Исправлены ошибки"</li>
+        <li> И другие изменения</li>
+      </ul>
+    </div>
+
+    
+  `;
+
+  modal.style.display = "flex";
+  setTimeout(() => {
+    modal.style.opacity = "1";
+    modal.querySelector('div').style.transform = "scale(1)";
+  }, 10);
+  
+  document.body.style.overflow = "hidden";
+}
+
+function closeChangelog() {
+  const modal = document.getElementById('changelogModal');
+  modal.style.opacity = "0";
+  modal.querySelector('div').style.transform = "scale(0.85)";
+  
+  setTimeout(() => {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+  }, 350);
+}
+  
+function startCountdown() {
+  const timerEl = document.getElementById('timer');
+  if (!timerEl) {
+    console.log("Таймер не найден"); // на всякий случай
+    return;
+  }
+
+  // ←←← ИЗМЕНИ ДАТУ ЗДЕСЬ
+  const nextUpdate = new Date("2026-05-22T18:00:00").getTime();
+
+  function update() {
+    const now = new Date().getTime();
+    const distance = nextUpdate - now;
+
+    if (distance < 0) {
+      timerEl.innerHTML = "<span style='color:#ef4444;'>Обновление уже вышло!</span>";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    let text = [];
+    if (days > 0) text.push(days + "д");
+    if (hours > 0) text.push(hours + "ч");
+    if (minutes > 0) text.push(minutes + "м");
+    if (seconds > 0 || text.length === 0) text.push(seconds + "с");
+
+    timerEl.textContent = text.join(" ");
+  }
+
+  update();                    // сразу показываем
+  setInterval(update, 1000);   // обновляем каждую секунду
+}
+
+// Запускаем таймер надёжно
+if (document.readyState === "complete") {
+  startCountdown();
+} else {
+  window.addEventListener("load", startCountdown);
+}
+function showAlternatives(cardElement) {
+  const name = cardElement.querySelector('.unit-name').textContent.trim();
+  const valueElement = cardElement.querySelector('.value');
+  const currentValue = parseValue(valueElement.textContent);
+
+  // Похожие юниты (±10k)
+  let alternatives = units.filter(u => {
+    if (u.name === name) return false;
+    const uValue = parseValue(u.value);
+    return Math.abs(uValue - currentValue) <= 12000 && uValue > 0;
+  });
+
+  // близкие цены
+  alternatives.sort((a, b) => 
+    Math.abs(parseValue(a.value) - currentValue) - Math.abs(parseValue(b.value) - currentValue)
+  );
+
+  let html = `<p style="margin:0 0 20px 0; color:#aaa;">Для <strong>${name}</strong> (~ ${valueElement.textContent})</p>`;
+
+  if (alternatives.length === 0) {
+    html += `<p style="text-align:center; padding:60px 20px; color:#666; font-size:1.1em;">Близких цен для этого юнита не найдено</p>`;
+  } else {
+    html += `<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:14px;">`;
+    
+    alternatives.slice(0, 12).forEach(unit => {
+      const diff = parseValue(unit.value) - currentValue;
+      const diffText = diff >= 0 ? `+${diff}` : diff;
+      
+      html += `
+        <div style="background:#1a1a1a; border-radius:14px; padding:12px; text-align:center; transition:0.2s;">
+          <img src="${unit.img}" style="width:85px; height:85px; object-fit:contain; border-radius:10px;" onerror="this.src='images/placeholder.png'">
+          <div style="font-weight:bold; margin:10px 0 4px; font-size:15px;">${unit.name}</div>
+          <div style="color:#FFCC00; font-size:17px; font-weight:bold;">${unit.value}</div>
+          <div style="font-size:13px; color:${diff >= 1 ? '#4ade80' : '#f87171'};">${diffText}</div>
+        </div>`;
+    });
+    html += `</div>`;
+  }
+
+  document.getElementById('alternativesContent').innerHTML = html;
+  
+  const modal = document.getElementById('alternativesModal');
+  modal.style.display = "flex";
+  
+  document.body.style.overflow = 'hidden';        
+  document.body.style.touchAction = 'none';      
+  
+  setTimeout(() => {
+    modal.style.opacity = "1";
+    modal.querySelector('div').style.transform = "scale(1)";
+  }, 10);
+}
+
+function closeAlternativesModal() {
+  const modal = document.getElementById('alternativesModal');
+  modal.style.opacity = "0";
+  modal.querySelector('div').style.transform = "scale(0.75)";
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 350);
+  
+  document.body.style.overflow = 'auto';        
+  document.body.style.touchAction = 'auto';  
+}
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Кнопка после прокрутки
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backToTop');
+  if (window.scrollY > 400) {
+    btn.style.display = 'block';
+  } else {
+    btn.style.display = 'none';
+  }
+});
+  function scrollToRight() {
+    const activeMain = document.querySelector('.main-section.active');
+  if (!activeMain) return;
+    
+    const currentTab = activeMain.querySelector('.tab.active');
+  const tabs = activeMain.querySelectorAll('.tab');
+  let currentIndex = Array.from(tabs).indexOf(currentTab);
+
+  if (currentIndex < tabs.length - 1) {
+    // следующий
+    switchSubTab(currentIndex + 1);
+  } else if (currentIndex > 0) {
+    // предыдущий
+    switchSubTab(currentIndex - 1);
+  }
+  }
+  function switchMainTab(n) {
+  
+  document.querySelectorAll('.main-section').forEach(section => {
+    section.style.display = 'none';
+    section.classList.remove('active');
+  });
+
+  
+  const targetMain = document.getElementById('mainSection' + n);
+  if (targetMain) {
+    targetMain.style.display = 'block';
+    targetMain.classList.add('active');
+  }
+
+ 
+  document.querySelectorAll('.main-tab').forEach(tab => tab.classList.remove('active'));
+  const activeMainTab = document.getElementById('mainTab' + n);
+  if (activeMainTab) activeMainTab.classList.add('active');
+
+  
+  setTimeout(() => {
+    switchSubTab(0);
+  }, 10);
+   
+}
+function switchSubTab(n) {
+ 
+  const activeMain = document.querySelector('.main-section.active');
+  if (!activeMain) return;
+
+  
+  activeMain.querySelectorAll('.sub-section').forEach(section => {
+    section.style.display = 'none';
+    section.classList.remove('active');
+  });
+
+  
+  const targetId = 'sub' + activeMain.id.slice(-1) + '-' + n;
+  const target = document.getElementById(targetId);
+  
+  if (target) {
+    target.style.display = 'block';
+    target.classList.add('active');
+  }
+
+ 
+  activeMain.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  const activeTab = activeMain.querySelectorAll('.tab')[n];
+  if (activeTab) activeTab.classList.add('active');
+
+}
+function showAuthors() {
+  const modal = document.getElementById('authorsModal');
+  modal.style.display = "flex";
+  
+  
+  document.body.style.overflow = "hidden";
+  
+  // Анимация появления
+  setTimeout(() => {
+    modal.style.opacity = "1";
+    modal.querySelector('div').style.transform = "scale(1)";
+  }, 10);
+}
+
+function closeAuthorsModal() {
+  const modal = document.getElementById('authorsModal');
+  modal.style.opacity = "0";
+  modal.querySelector('div').style.transform = "scale(0.8)";
+  
+  setTimeout(() => {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto"; // возвращаем прокрутку
+  }, 300);
+}
+  function parseValue(str) {
+  if (!str || str === "") return 0;
+
+  
+  str = str.toString().trim().toUpperCase();
+
+  let multiplier = 1;
+
+  
+  if (str.includes('M')) {
+    multiplier = 1000000;
+    str = str.replace('M', '');
+  } else if (str.includes('K')) {
+    multiplier = 1000;
+    str = str.replace('K', '');
+  } else if (str.includes('К')) {
+    multiplier = 1000;
+    str = str.replace('К', '');
+  }
+
+  
+  const number = parseFloat(str);
+
+  if (isNaN(number)) return 0;
+
+  return number * multiplier;
+}
+function switchTab(n) {
+  
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.display = 'none';
+    section.classList.remove('active');
+  });
+
+  
+  const activeSection = document.getElementById('section' + n);
+  if (activeSection) {
+    activeSection.style.display = 'block';
+    activeSection.classList.add('active');
+  }
+
+  
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+
+  const activeTab = document.querySelectorAll('.tab')[n];
+  if (activeTab) activeTab.classList.add('active');
+}
+    function getRarityStyle(rarity) {
+      if (rarity === "Legendary") return `<div class="rarity" style="background:#CE2626; color:white;">Легендарный</div>`;
+      if (rarity === "Exclusive") return `<div class="rarity" style="background:#831C91; color:white;">Эксклюзивный</div>`;
+   if (rarity === "Godly") return `<div class="rarity" style="background:#B33791; color:white;">Божественный</div>`;
+     if (rarity === "Gamepass") return `<div class="rarity" style="background:#F2B50B; color:white;">Геймпасс</div>`;
+     return '';
+   }
+
+  
+      function getStatusHTML(status) {
+      if (status === "up") return `<div class="status" style="background:#14532d; color:white;">↑ Рост</div>`;
+      if (status === "down") return `<div class="status" style="background:#7f1d1d; color:white;">↓ Падение</div>`;
+      if (status === "stable") return `<div class="status" style="background:#78350f; color:white;">→ Стабильно</div>`;
+      if (status === "unstable") return `<div class="status" style="background:#312e81; color:white;">↯ Нестабильно</div>`;
+      if (status === "scatter") return `<div class="status" style="background:#1E104E; color:white;">⟨⟩ Разброс цены</div>`;
+      return '';
+    }
+    
+    function renderUnits(filtered) {
+      const grid = document.getElementById('unitGrid');
+      grid.innerHTML = '';
+
+      filtered.forEach(unit => {
+        const card = document.createElement('div');
+        card.className = 'unit-card';
+        card.innerHTML = `
+          <img src="${unit.img}" onerror="this.src='images/placeholder.png'">
+          <div class="unit-name">${unit.name}</div>
+          <div class="value">${unit.value}</div>
+          <div class="demand">Спрос: ${unit.demand}</div>
+          <div class="rarity">${getRarityStyle(unit.rarity)}<div>
+          ${getStatusHTML(unit.status)}
+        
+       
+       <button onclick="showAlternatives(this.closest('.unit-card'))" 
+        class="alt-btn">
+        🔄 Варианты
+        </button>
+        
+        `;
+        grid.appendChild(card);
+      });
+
+      document.getElementById('count').textContent = filtered.length;
+    }
+
+    function filterUnits() {
+  let filtered = [...units];
+  
+  const search = document.getElementById('search').value.toLowerCase().trim();
+  const rarity = document.getElementById('rarityFilter').value;
+  const typeFilter = document.getElementById('typeFilter').value;
+
+  if (search) {
+    filtered = filtered.filter(u => u.name.toLowerCase().includes(search));
+  }
+  if (rarity) {
+    filtered = filtered.filter(u => u.rarity === rarity); 
+  }
+  if (typeFilter === "new") {
+    filtered = filtered.filter(u => u.new === true);   
+  }
+  if (typeFilter === "top") {
+    filtered = filtered.filter(u => u.top === true);  
+  }
+  if (typeFilter === "rb") {
+    filtered = filtered.filter(u => u.rb === true);  
+  }
+      
+  const sortType = document.getElementById('typeFilter').value;
+
+  if (sortType === "asc") {
+    filtered.sort((a, b) => parseValue(a.value) - parseValue(b.value));
+  } 
+  else if (sortType === "desc") {
+    filtered.sort((a, b) => parseValue(b.value) - parseValue(a.value));
+  }
+  renderUnits(filtered, 'unitGrid');
+  renderUnits(filtered, 'tierGrid');
+}
+let currentViewMode = "normal";
+
+function toggleViewMenu() {
+  const menu = document.getElementById('viewMenu');
+  menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+  function showSearchSuggestions() {
+  const input = document.getElementById('search');
+  const query = input.value.toLowerCase().trim();
+  const suggestionsBox = document.getElementById('searchSuggestions');
+
+  if (query.length < 1) {
+    suggestionsBox.style.display = 'none';
+    return;
+  }
+
+  // Определяем, какой массив использовать
+  const activeMain = document.querySelector('.main-section.active');
+  let currentUnits = units;
+  if (activeMain && activeMain.id === 'mainSection1') {
+    currentUnits = typeof ntdUnits !== 'undefined' ? ntdUnits : units;
+  }
+
+  const filtered = currentUnits
+    .filter(unit => unit.name.toLowerCase().includes(query))
+    .slice(0, 8); // максимум 8 подсказок
+
+  if (filtered.length === 0) {
+    suggestionsBox.style.display = 'none';
+    return;
+  }
+
+  let html = '';
+  filtered.forEach(unit => {
+    html += `
+      <div class="suggestion-item" onclick="selectSuggestion('${unit.name}')">
+        <img src="${unit.img}" onerror="this.src='images/placeholder.png'">
+        <div class="suggestion-name">${unit.name}</div>
+        <div class="suggestion-value">${unit.value}</div>
+      </div>
+    `;
+  });
+
+  suggestionsBox.innerHTML = html;
+  suggestionsBox.style.display = 'block';
+}
+
+function selectSuggestion(unitName) {
+  const input = document.getElementById('search');
+  input.value = unitName;
+  document.getElementById('searchSuggestions').style.display = 'none';
+  
+  // Выполняем поиск
+  filterUnits();
+  if (typeof filterNTD === 'function') filterNTD();
+}
+function setViewMode(mode) {
+  currentViewMode = mode;
+  const body = document.body;
+
+  body.classList.remove('compact-mode', 'wide-mode');
+
+  if (mode === 'compact') {
+    body.classList.add('compact-mode');
+    document.getElementById('currentViewText').textContent = "Компактный вид";
+  } 
+  else if (mode === 'wide') {
+    body.classList.add('wide-mode');
+    document.getElementById('currentViewText').textContent = "Обширный вид";
+  } 
+  else {
+    document.getElementById('currentViewText').textContent = "Обычный вид";
+  }
+
+  document.getElementById('viewMenu').style.display = 'none';
+}
+
+  let giveItems = [];
+let receiveItems = [];
+let currentSide = "give";
+
+function openModal(side) {
+  currentSide = side;
+  document.getElementById('modalTitle').textContent = side === "give" ? "Добавить в Отдаёшь" : "Добавить в Получаешь";
+  document.getElementById('modal').style.display = "flex";
+  filterModalUnits();
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = "none";
+}
+
+function filterModalUnits() {
+  const search = document.getElementById('modalSearch').value.toLowerCase().trim();
+  const container = document.getElementById('modalList');
+  container.innerHTML = '';
+
+  units.filter(u => u.name.toLowerCase().includes(search)).forEach(unit => {
+    const div = document.createElement('div');
+    div.style.cssText = 'background:#222; border-radius:12px; padding:12px; text-align:center; cursor:pointer;';
+
+    div.innerHTML = `
+      <img src="${unit.img}" onerror="this.src='images/placeholder.png'" style="width:100%; height:110px; object-fit:contain; border-radius:8px;">
+      <div style="margin:10px 0 6px; font-weight:bold; line-height:1.3;">${unit.name}</div>
+      <div style="color:#fbbf24; margin-bottom:10px;">${unit.value}</div>
+      
+      <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:8px;">
+        <input type="number" value="1" min="1" max="50" 
+               style="width:80px; text-align:center; background:#1f1f1f; color:white; border:none; border-radius:8px; padding:8px; font-size:16px;">
+      </div>
+    `;
+
+    div.onclick = (e) => {
+      if (e.target.tagName === "INPUT") return; 
+
+      const qtyInput = div.querySelector('input');
+      const quantity = parseInt(qtyInput.value) || 1;
+
+      const itemWithQty = { ...unit, quantity: quantity };
+
+      if (currentSide === "give") giveItems.push(itemWithQty);
+      else receiveItems.push(itemWithQty);
+
+      updateCalculator();
+      closeModal();
+    };
+
+    container.appendChild(div);
+  });
+}
+
+function updateCalculator() {
+  
+  const giveList = document.getElementById('giveList');
+  giveList.innerHTML = '';
+  giveItems.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex; align-items:center; background:#222; padding:8px; border-radius:8px; margin:6px 0;';
+    div.innerHTML = `
+      <img src="${item.img}" onerror="this.src='images/placeholder.png'" style="width:50px; height:50px; object-fit:contain; margin-right:10px;">
+      <div style="flex:1;">
+        <div>${item.name}</div>
+        <div style="color:#fbbf24;">${item.value} × ${item.quantity}</div>
+      </div>
+      <button onclick="removeFromGive(${index})" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:6px;">✕</button>
+    `;
+    giveList.appendChild(div);
+  });
+
+  
+  const receiveList = document.getElementById('receiveList');
+  receiveList.innerHTML = '';
+  receiveItems.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex; align-items:center; background:#222; padding:8px; border-radius:8px; margin:6px 0;';
+    div.innerHTML = `
+      <img src="${item.img}" onerror="this.src='images/placeholder.png'" style="width:50px; height:50px; object-fit:contain; margin-right:10px;">
+      <div style="flex:1;">
+        <div>${item.name}</div>
+        <div style="color:#fbbf24;">${item.value} × ${item.quantity}</div>
+      </div>
+      <button onclick="removeFromReceive(${index})" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:6px;">✕</button>
+    `;
+    receiveList.appendChild(div);
+  });
+
+  
+  const sumGive = giveItems.reduce((sum, u) => sum + parseValue(u.value) * (u.quantity || 1), 0);
+  const sumReceive = receiveItems.reduce((sum, u) => sum + parseValue(u.value) * (u.quantity || 1), 0);
+
+  document.getElementById('totalGive').textContent = sumGive;
+  document.getElementById('totalReceive').textContent = sumReceive;
+
+  
+  const diff = sumReceive - sumGive;
+  const result = document.getElementById('tradeResult');
+  if (diff > 150000) result.innerHTML = `<span style="color:#4ade80;">Отличный трейд! WIN</span>`;
+  else if (diff > 0) result.innerHTML = `<span style="color:#fbbf24;">Хороший трейд</span>`;
+  else if (diff > -80000) result.innerHTML = `<span style="color:#fbbf24;">Fair</span>`;
+  else result.innerHTML = `<span style="color:#f87171;">Плохой трейд</span>`;
+}
+  function removeFromGive(index) {
+  giveItems.splice(index, 1);
+  updateCalculator();
+}
+
+function removeFromReceive(index) {
+  receiveItems.splice(index, 1);
+  updateCalculator();
+}
+
+function clearTrade() {
+  giveItems = [];
+  receiveItems = [];
+  updateCalculator();
+}
+
+function switchTab(n) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section' + n).classList.add('active');
+  document.querySelectorAll('.tab')[n].classList.add('active');
+}
+let touchStartX = 0;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+  const touchEndX = e.changedTouches[0].screenX;
+  const diff = touchStartX - touchEndX;
+
+  if (Math.abs(diff) < 90) return; // минимальная дистанция для свайпа
+
+  const activeMain = document.querySelector('.main-section.active');
+  if (!activeMain) return;
+
+  const tabs = activeMain.querySelectorAll('.tab');
+  let currentIndex = Array.from(tabs).findIndex(tab => tab.classList.contains('active'));
+
+  if (diff > 80 && currentIndex < tabs.length - 1) {
+    // Свайп ← (вправо по экрану = следующая вкладка)
+    animateSwipe(activeMain, currentIndex, currentIndex + 1, 'left');
+  } 
+  else if (diff < -80 && currentIndex > 0) {
+    // Свайп → (влево по экрану = предыдущая вкладка)
+    animateSwipe(activeMain, currentIndex, currentIndex - 1, 'right');
+  }
+});
+
+function animateSwipe(activeMain, fromIndex, toIndex, direction) {
+  const fromSection = activeMain.querySelectorAll('.sub-section')[fromIndex];
+  const toSection = activeMain.querySelectorAll('.sub-section')[toIndex];
+
+  if (!fromSection || !toSection) return;
+
+  // Добавляем класс анимации
+  fromSection.classList.add(direction === 'left' ? 'swipe-left' : 'swipe-right');
+
+  setTimeout(() => {
+    // Переключаем вкладки
+    activeMain.querySelectorAll('.sub-section').forEach(s => {
+      s.style.display = 'none';
+      s.classList.remove('active', 'swipe-left', 'swipe-right');
+    });
+
+    toSection.style.display = 'block';
+    toSection.classList.add('active');
+
+    // Обновляем активный таб
+    activeMain.querySelectorAll('.tab').forEach((tab, i) => {
+      tab.classList.toggle('active', i === toIndex);
+    });
+  }, 280); // длительность анимации
+}
+
+    function resetFilters() {
+      document.getElementById('search').value = '';
+      document.getElementById('rarityFilter').value = '';
+      filterUnits();
+    }
+
+    window.onload = () => {
+  renderUnits(units)
+};
+
+
+  </script>
+<!-- Модальное окно Авторы -->
+<div id="authorsModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:2000; align-items:center; justify-content:center; opacity:0; transition: opacity 0.4s ease;">
+  <div style="background:#1a1a1a; width:90%; max-width:520px; border-radius:16px; padding:25px; max-height:88vh; overflow:auto; transform:scale(0.8); transition: transform 0.4s ease;">
+    <h2 style="text-align:center; margin:0 0 25px 0;">👥 Авторы проекта</h2>
+    
+    <div style="display:flex; flex-direction:column; gap:18px;">
+      
+      
+      <div style="display:flex; align-items:center; gap:15px; background:#222; padding:15px; border-radius:12px;">
+  <img src="https://t.me/i/userpic/320/MEDAR323_OFFICIAL.jpg" 
+       style="width:75px; height:75px; border-radius:50%; object-fit:cover;" 
+       onerror="this.src='https://via.placeholder.com/75?text=TG'">
+        <div style="flex:1;">
+          <div style="font-weight:bold; font-size:1.1em;">MEDAR323</div>
+          <div style="color:#888;">Основатель • Главный разработчик</div>
+          <a href="https://t.me/MEDAR323_OFFICIAL" target="_blank" style="color:#4ade80; text-decoration:none;">Ссылка на профиль (телеграм)</a>
+        </div>
+      </div>
+      
+<div style="display:flex; align-items:center; gap:15px; background:#222; padding:15px; border-radius:12px;">
+  <img src="https://t.me/i/userpic/320/AIextirlistmeiker.jpg" 
+       style="width:75px; height:75px; border-radius:50%; object-fit:cover;" 
+       onerror="this.src='https://via.placeholder.com/75?text=TG'">
+        <div style="flex:1;">
+          <div style="font-weight:bold; font-size:1.1em;">Alex</div>
+          <div style="color:#888;">Хелпер • Автор цен</div>
+          <a href="https://t.me/AIextirlistmeiker" target="_blank" style="color:#4ade80; text-decoration:none;">Ссылка на профиль (телеграм)</a>
+        </div>
+      </div>
+      
+      <div style="display:flex; align-items:center; gap:15px; background:#222; padding:15px; border-radius:12px;">
+  <img src="https://t.me/i/userpic/320/ouswu.jpg" 
+       style="width:75px; height:75px; border-radius:50%; object-fit:cover;" 
+       onerror="this.src='https://via.placeholder.com/75?text=TG'">
+        <div style="flex:1;">
+          <div style="font-weight:bold; font-size:1.1em;">qwenty ouswu amvas</div>
+          <div style="color:#888;">Хелпер • Автор цен</div>
+          <a href="https://t.me/ouswu" target="_blank" style="color:#4ade80; text-decoration:none;">Ссылка на профиль (телеграм)</a>
+        </div>
+      </div>
+      
+      <div style="display:flex; align-items:center; gap:15px; background:#222; padding:15px; border-radius:12px;">
+  <img src="https://t.me/i/userpic/320/HomsterDino.jpg" 
+       style="width:75px; height:75px; border-radius:50%; object-fit:cover;" 
+       onerror="this.src='https://via.placeholder.com/75?text=TG'">
+        <div style="flex:1;">
+          <div style="font-weight:bold; font-size:1.1em;">HomsterDino</div>
+          <div style="color:#888;">Хелпер • Автор цен</div>
+          <a href="https://t.me/HomsterDino" target="_blank" style="color:#4ade80; text-decoration:none;">Ссылка на профиль (телеграм)</a>
+        </div>
+      </div>
+      
+    </div>
+
+    <button onclick="closeAuthorsModal()" 
+      style="width:100%; margin-top:25px; padding:15px; background:#ef4444; border:none; border-radius:12px; color:white; font-size:16px;">
+      Закрыть
+    </button>
+  </div>
+</div>
+<!-- Кнопка Наверх -->
+<button id="backToTop" onclick="scrollToTop()" 
+  style="display:none; position:fixed; bottom:30px; right:40px; width:50px; height:50px; background:#4ade80; color:black; border:none; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.5); z-index:1000; transition:all 0.3s;">
+  ↑
+</button>
+  <!-- <button id="ToRight" onclick="scrollToRight()"
+  style="display:flex; position:fixed; bottom:30px; right:20px; width:50px; height:50px; background:#4ade80; color:black; border:none; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.5); z-index:1000; transition:all 0.3s;">
+   ||
+  </button> -->
+  
+  
+  <!-- окно Обновлений -->
+<div id="changelogModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.96); z-index:3000; align-items:center; justify-content:center; opacity:0; transition:opacity 0.4s; backdrop-filter: blur(8px);">
+  <div style="background:#0f0f0f; width:92%; max-width:640px; max-height:92vh; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.8); transform:scale(0.8); transition:transform 0.4s ease;">
+    
+    <!-- Заголовок -->
+    <div style="padding:20px 25px; background:linear-gradient(90deg, #1a1a1a, #222); border-bottom:1px solid #333; display:flex; align-items:center; justify-content:space-between;">
+      <h2 style="margin:0; display:flex; align-items:center; gap:12px;">
+        📜 <span>История обновлений MDV</span>
+      </h2>
+      <button onclick="closeChangelog()" style="background:none; border:none; font-size:32px; color:#666; cursor:pointer; line-height:1;">×</button>
+    </div>
+
+    <!-- Содержимое -->
+    <div id="changelogContent" style="padding:25px; max-height:68vh; overflow-y:auto; scrollbar-width:thin;">
+      <!-- Обновления -->
+    </div>
+  </div>
+</div>
+  
+  <!-- Модальное окно "Возможные варианты" -->
+<div id="alternativesModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.94); z-index:4000; align-items:center; justify-content:center; opacity:0; transition:opacity 0.4s;">
+  <div style="background:#0f0f0f; width:92%; max-width:680px; border-radius:20px; overflow:hidden; box-shadow:0 25px 70px rgba(0,0,0,0.9); transform:scale(0.75); transition:transform 0.4s ease;">
+    
+    <div style="padding:20px 24px; background:linear-gradient(90deg, #1f1f1f, #2a2a2a); display:flex; justify-content:space-between; align-items:center;">
+      <h2 style="margin:0; color:#60a5fa;">🔄 Возможные варианты</h2>
+      <button onclick="closeAlternativesModal()" style="background:none; border:none; font-size:30px; color:#777; cursor:pointer;">×</button>
+    </div>
+    
+    <div id="alternativesContent" style="padding:24px; max-height:65vh; overflow-y:auto; scrollbar-width:thin;">
+      <!-- Контент JS -->
+    </div>
+  </div>
+</div>
+  
+  <script data-goatcounter="https://medar324.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+  
+</body>
+</html>
